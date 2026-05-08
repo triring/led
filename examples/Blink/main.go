@@ -1,3 +1,4 @@
+// go get github.com/triring/led
 // tinygo build -target=pico2 -size=short -o blink.uf2 ./main.go
 // tinygo flash -target=pico2 -size=short -monitor ./main.go
 
@@ -17,8 +18,8 @@ import (
 
 	"fmt"
 	"machine"
-
-	"led" // ローカルに置いたledの自作パッケージ
+	"github.com/triring/led"	// githubで公開しているパッケージを取り込む場合。
+//	"led" // ローカルのディレクトリに置かれたledのパッケージをインポートする場合の設定
 )
 
 func main() {
