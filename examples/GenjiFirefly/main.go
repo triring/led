@@ -1,6 +1,6 @@
 // go get github.com/triring/led
-// tinygo build -target=pico2 -size=short -o GenjiFirefly.uf2 ./main.go
-// tinygo flash -target=pico2 -size=short -monitor ./main.go
+// tinygo build -target=pico2 -size=short -o GenjiFirefly.uf2 .
+// tinygo flash -target=pico2 -size=short -monitor .
 
 /*
 使用するボードにあわせてtargetを変更すること。
@@ -15,36 +15,38 @@ pico2-w
 package main
 
 import (
-	//	"fmt"
+	"fmt"
+	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合
 	"machine"
-
-	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合の記述
-	//	"led"  ローカルのディレクトリに置かれたledのパッケージをインポートする場合の記述
+	"time"
+	//	"led"  ローカルのディレクトリに置かれたledのパッケージをインポートする場合
 )
 
 func main() {
 
 	// オンボードLEDをセットアップ
-	OnboardLED := led.New(machine.LED)
-	// ゲンジボタルの明滅パターン
-	// 地域によって、発光パターンが異なる。
-	/*
-		| 地域     | 点灯(秒) | 消灯(秒) |
-		|:--------:|:--------:|:--------:|
-		| 五島列島 |    1     |    1     |
-		| 西日本   |    2     |    1     |
-		| 東日本   |    4     |    1     |
+	LED := led.New(machine.LED)
+	/* ゲンジボタルの明滅パターンは、生息地域によって異なっている。
+	| 地域     | 点灯(秒) | 消灯(秒) |
+	|:--------:|:--------:|:--------:|
+	| 五島列島 |    1     |    1     |
+	| 西日本   |    2     |    1     |
+	| 東日本   |    4     |    1     |
 	*/
+	time.Sleep(time.Millisecond * 3000)
 	var i int = 0
 	for {
+		fmt.Printf("五島列島のゲンジボタル\n")
 		for i = 0; i < 15; i++ {
-			OnboardLED.Blink(1000, 1000) //	五島列島のゲンジボタル
+			LED.Blink(1000, 1000)
 		}
+		fmt.Printf("西日本のゲンジボタル\n")
 		for i = 0; i < 5; i++ {
-			OnboardLED.Blink(2000, 1000) //	西日本のゲンジボタル
+			LED.Blink(2000, 1000)
 		}
+		fmt.Printf("東日本のゲンジボタル\n")
 		for i = 0; i < 3; i++ {
-			OnboardLED.Blink(4000, 1000) //	東日本のゲンジボタル
+			LED.Blink(4000, 1000)
 		}
 	}
 }

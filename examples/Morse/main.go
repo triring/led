@@ -1,6 +1,6 @@
 // go get github.com/triring/led
-// tinygo build -target=pico2 -size=short -o Morse.uf2 ./main.go
-// tinygo flash -target=pico2 -size=short -monitor ./main.go
+// tinygo build -target=pico2 -size=short -o Morse.uf2 .
+// tinygo flash -target=pico2 -size=short -monitor .
 
 /*
 使用するボードにあわせてtargetを変更すること。
@@ -15,9 +15,11 @@ pico2-w
 package main
 
 import (
-	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合の記述
+	"fmt"
+	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合
 	"machine"
-	//	"led"  ローカルのディレクトリに置かれたledのパッケージをインポートする場合の記述
+	"time"
+	//	"led"  ローカルのディレクトリに置かれたledのパッケージをインポートする場合
 )
 
 func main() {
@@ -37,12 +39,21 @@ func main() {
 	*/
 
 	// オンボードLEDを初期化
-	OnboardLED := led.New(machine.LED)
-	// LEDの点滅で心臓の鼓動を表現
+	LED := led.New(machine.LED)
+	time.Sleep(time.Millisecond * 3000)
+	// LEDの点滅でモールス信号を送信
 	for {
-		//	G	--.
-		OnboardLED.Blink(dah, spc, dah, spc, dit, spc*3)
-		//	O	---
-		OnboardLED.Blink(dah, spc, dah, spc, dah, spc*7)
+		fmt.Printf("T\t-\n")
+		LED.Blink(dah, spc*3)
+		fmt.Printf("I\t..\n")
+		LED.Blink(dit, spc, dit, spc*3)
+		fmt.Printf("N\t-.\n")
+		LED.Blink(dah, spc, dit, spc*3)
+		fmt.Printf("Y\t-.--\n")
+		LED.Blink(dah, spc, dit, spc, dah, spc, dah, spc*3)
+		fmt.Printf("G\t--.\n")
+		LED.Blink(dah, spc, dah, spc, dit, spc*3)
+		fmt.Printf("O\t---\n\n")
+		LED.Blink(dah, spc, dah, spc, dah, spc*7)
 	}
 }

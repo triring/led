@@ -1,7 +1,7 @@
-// Package LED driver
+// Package LED は、LED用ドライバです。
 package led
+
 import (
-//	"fmt"
 	"machine"
 	"time"
 )
@@ -10,7 +10,7 @@ import (
 //
 // ledが接続されているPinの情報を保持します。
 type Device struct {
-	led     machine.Pin
+	led machine.Pin // 使用するLEDが接続されているPinの情報を保持します。
 }
 
 // New creates a new led device.
@@ -19,7 +19,7 @@ type Device struct {
 func New(led machine.Pin) Device {
 	// Configure sets up the pins.
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
-	led.Low()	// LED Lights off
+	led.Low() // LED Lights off
 	return Device{led: led}
 }
 
@@ -36,13 +36,12 @@ func (d *Device) Blink(DurationTime ...int) {
 	}
 }
 
-
 func pinMode(pin machine.Pin, mode bool) {
 	if mode {
-	//	fmt.Println("machine.PinInput")
+		//	fmt.Println("machine.PinInput")
 		pin.Configure(machine.PinConfig{Mode: machine.PinInput})
 	} else {
-	//	fmt.Println("machine.PinOutput")
+		//	fmt.Println("machine.PinOutput")
 		pin.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	}
 }
@@ -56,14 +55,14 @@ func (d *Device) Status() bool {
 
 // LED turn On
 //
-// 	LEDを点灯するメソッドです。
+//	LEDを点灯するメソッドです。
 func (d *Device) On() {
 	d.led.High()
 }
 
 // LED turn Off
 //
-// 	LEDを消灯するメソッドです。
+//	LEDを消灯するメソッドです。
 func (d *Device) Off() {
 	d.led.Low()
 }
