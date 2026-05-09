@@ -27,6 +27,10 @@ go.work.sum
 # env file
 .env
 
+# 作業メモとバックアップファイルは無視する。
+memo.txt
+*.bak
+
 # Editor/IDE
 # .idea/
 # .vscode/
