@@ -16,16 +16,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合
 	"machine"
 	"time"
+
+	"github.com/triring/led" // githubで公開しているパッケージをインポートする場合
 	//	"led"  ローカルのディレクトリに置かれたledのパッケージをインポートする場合
 )
 
 func main() {
+	// オンボードLEDを初期化
+	// 第1引数: LEDを接続しているGPIOの番号を設定して下さい。
+	// 第2引数: LEDがLowで点灯する場合は0を、Highで点灯する場合は1を設定して下さい。
+	LED := led.New(machine.LED, 1)
 
-	// オンボードLEDをセットアップ
-	LED := led.New(machine.LED)
 	/* ゲンジボタルの明滅パターンは、生息地域によって異なっている。
 	| 地域     | 点灯(秒) | 消灯(秒) |
 	|:--------:|:--------:|:--------:|
