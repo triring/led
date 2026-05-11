@@ -6,21 +6,38 @@ import (
 	"time"
 )
 
+const (
+	ActiveLow  = iota // Low（0）で点灯する場合
+	ActiveHigh        // High（1）で点灯する場合
+)
+
 // Device wraps the pins of LED.
 //
 // ledが接続されているPinの情報を保持します。
 type Device struct {
-	led machine.Pin // 使用するLEDが接続されているPinの情報を保持します。
+	led     machine.Pin // LEDが接続されているPin情報を保持
+	turnOn  bool        // LEDの点灯条件を定義
+	turnOff bool        // LEDの消灯条件を定義
 }
 
 // New creates a new led device.
 //
 // ledドライバを初期化します。
-func New(led machine.Pin) Device {
+// led: LEDを接続するGPIOの番号を設定して下さい。
+// OutputType: LEDがLowで点灯する場合は0を、Highで点灯する場合は1を設定して下さい。
+func New(led machine.Pin, OutputType int) Device {
+	var dev Device
 	// Configure sets up the pins.
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
-	led.Low() // LED Lights off
-	return Device{led: led}
+	switch OutputType {
+	case ActiveLow: // Lowで点灯する場合の設定：シンク駆動・カソード側駆動
+		led.Set(true)
+		dev = Device{led: led, turnOn: false, turnOff: true}
+	case ActiveHigh: // Highで点灯する場合の設定：ソース駆動・アノード側駆動
+		led.Set(false)
+		dev = Device{led: led, turnOn: true, turnOff: false}
+	}
+	return dev
 }
 
 // Make the LED blink.
@@ -36,6 +53,9 @@ func (d *Device) Blink(DurationTime ...int) {
 	}
 }
 
+// Pin mode setting
+//
+// ピンのモードを設定します。
 func pinMode(pin machine.Pin, mode bool) {
 	if mode {
 		//	fmt.Println("machine.PinInput")
@@ -50,21 +70,26 @@ func pinMode(pin machine.Pin, mode bool) {
 //
 // LEDを点灯状態を確認するメソッドです。
 func (d *Device) Status() bool {
-	return d.led.Get()
+	if d.turnOn == d.led.Get() {
+		return d.turnOn
+	} else {
+
+		return d.turnOff
+	}
 }
 
 // LED turn On
 //
 //	LEDを点灯するメソッドです。
 func (d *Device) On() {
-	d.led.High()
+	d.led.Set(d.turnOn)
 }
 
 // LED turn Off
 //
 //	LEDを消灯するメソッドです。
 func (d *Device) Off() {
-	d.led.Low()
+	d.led.Set(d.turnOff)
 }
 
 // Toggle LED on and off
