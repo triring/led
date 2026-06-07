@@ -30,7 +30,9 @@ go.work.sum
 # 作業メモとバックアップファイルは無視する。
 memo.txt
 *.bak
-
+*.zip
+./backup
+./ForgeRoom
 # Editor/IDE
 # .idea/
 # .vscode/

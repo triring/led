@@ -11,7 +11,7 @@ tinygoのコードをパッケージとして集約する方法やGithubへの�
 git clone https://github.com/triring/led.git
 ```
 
-コピーされるたledディレクトリ内のファイル構成
+コピーされたledディレクトリ内のファイル構成
 ```bash
 led
 |   .gitignore
