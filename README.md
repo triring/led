@@ -21,6 +21,10 @@ led
 |   README.md
 |
 \---examples
+    +---AnamorphicEqualizer
+    |   main.go
+    |   README.md
+    |
     +---Blink
     |       main.go
     |

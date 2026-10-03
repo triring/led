@@ -29,10 +29,13 @@ go.work.sum
 
 # 作業メモとバックアップファイルは無視する。
 memo.txt
+workmemo.txt
 *.bak
 *.zip
 ./backup
 ./ForgeRoom
+./examples/AnamorphicEqualizer/workmemo.txt
+./examples/AnamorphicEqualizer/photo
 # Editor/IDE
 # .idea/
 # .vscode/
