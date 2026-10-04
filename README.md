@@ -118,6 +118,8 @@ LED.Blink(50, 200, 50, 200, 0, 250, 0, 250)
 このドライバを使って、「ナイトライダーのあれ」を実装してみました。  
 詳細については、examples内のAnamorphicEqualizerをご覧ください。  
 
+[./examples/AnamorphicEqualizer/README.md](./examples/AnamorphicEqualizer/README.md)
+
 ``` bash
 examples
     +---AnamorphicEqualizer
@@ -127,7 +129,7 @@ examples
 
 ![Maker Nano RP2040](./examples/AnamorphicEqualizer/images/DSCN1094_800x480.jpg)
 
-[./examples/AnamorphicEqualizer/README.md](./examples/AnamorphicEqualizer/README.md)
+
 
 ## このパッケージのドキュメント
 
