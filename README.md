@@ -113,6 +113,22 @@ LED.Blink(300, 100, 300, 100, 100)
 LED.Blink(50, 200, 50, 200, 0, 250, 0, 250)
 ```
 
+## 応用例
+
+このドライバを使って、「ナイトライダーのあれ」を実装してみました。  
+詳細については、examples内のAnamorphicEqualizerをご覧ください。  
+
+``` bash
+examples
+    +---AnamorphicEqualizer
+        main.go
+        README.md
+```
+
+![Maker Nano RP2040](./examples/AnamorphicEqualizer/images/DSCN1094_800x480.jpg)
+
+[./examples/AnamorphicEqualizer/README.md](./examples/AnamorphicEqualizer/README.md)
+
 ## このパッケージのドキュメント
 
 [package ledのドキュメント](https://pkg.go.dev/github.com/triring/led)
