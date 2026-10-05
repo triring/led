@@ -28,6 +28,15 @@ type TaskNode struct {
 	Prev   *TaskNode    // 前のタスクへのポインタ
 }
 
+// LEDの初期状態
+// LEDの実装方法により、GPIO ピンの出力での点灯状態が異なってきます。
+// * High()の時に点灯する
+// * Low()の時に点灯する
+// 全LEDの初期状態は、全て消灯状態にしておく必要があるので、LEDが消灯状態になるように、以下の定数を0か1を設定して下さい。
+const (
+	InitialState int = 1
+)
+
 // 点滅パターンを設定する。
 // 各ノードは、このタイミングで1度だけ点滅する。
 // 実機での点滅状態を確認しながら調整すること。
@@ -110,7 +119,7 @@ func main() {
 	for i, pin := range pins {
 		node := &TaskNode{
 			Id:     i,
-			Led:    led.New(pin, 1),
+			Led:    led.New(pin, InitialState), // LEDが消灯状態になるように、InitialStateを0か1に設定しておくこと。
 			MyChan: make(chan Message),
 		}
 		// led.New(pin, ?)
